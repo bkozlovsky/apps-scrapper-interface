@@ -13,8 +13,8 @@ let bodyParser = require('body-parser')
 
 let urlencodedParser = bodyParser.urlencoded({ extended: false })
 
-let port = 3000
-let hostname = '127.0.0.1'
+let port = 8080
+let hostname = 'parser.mrko.me'
 
 app.set('view engine', 'ejs')
 

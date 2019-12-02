@@ -1,0 +1,19 @@
+{
+  "name": "apps-scrapper-interface",
+  "version": "1.0.0",
+  "description": "A simple node.js web application for getting info about applications from Google Play store and Apple App store",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bkozlovsky/apps-scrapper-interface.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bkozlovsky/apps-scrapper-interface/issues"
+  },
+  "homepage": "https://github.com/bkozlovsky/apps-scrapper-interface#readme"
+}
