@@ -38,7 +38,8 @@ app.post('/', urlencodedParser, function(req, res) {
           developer: app.developer,
           developerWebsite: app.developerWebsite,
           developerEmail: app.developerEmail,
-          updated: convert_date(app.updated)
+          updated: convert_date(app.updated),
+          glink: app.url
         }))
         res.render('index2', {categories: gcategories.cats, apps_results: newAppsList});
       })
