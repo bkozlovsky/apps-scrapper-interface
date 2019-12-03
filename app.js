@@ -1,6 +1,6 @@
 let http = require('http')
 let fs = require('fs')
-let gplay = require('google-play-scraper');
+let gplay = require('google-play-scraper').memoized();
 
 let express = require('express')
 let app = express();
@@ -16,6 +16,11 @@ let urlencodedParser = bodyParser.urlencoded({ extended: false })
 let port = 8080
 let hostname = 'parser.mrko.me'
 
+function convert_date(dateobj) {
+  var date = new Date(dateobj);
+  return `${date.getUTCDate()}/${date.getUTCMonth()}/${date.getUTCFullYear()}`
+}
+
 app.set('view engine', 'ejs')
 
 app.use(express.urlencoded())
@@ -27,14 +32,13 @@ app.get('/', function(req, res) {
 app.post('/', urlencodedParser, function(req, res) {
   Object.entries(gcategories.cats).forEach(function(key, value) {
     if (req.body.selected_category == key[1]) {
-      gplay.list({category: key[0],
-      collection: gplay.collection.TOP_FREE, num: 15, fullDetail: true}).then(appsList => {
+      gplay.list({category: key[0], num: Number(req.body.number_of_apps), fullDetail: true}).then(appsList => {
         const newAppsList = appsList.map(app => ({
           title: app.title,
           developer: app.developer,
           developerWebsite: app.developerWebsite,
           developerEmail: app.developerEmail,
-          updated: app.updated
+          updated: convert_date(app.updated)
         }))
         res.render('index2', {categories: gcategories.cats, apps_results: newAppsList});
       })

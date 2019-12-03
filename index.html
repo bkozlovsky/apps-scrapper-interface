@@ -7,9 +7,9 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <style>
         body {
-            padding-left: 5px;
-            padding-right: 5px;
-            padding-top: 5px;
+            padding-left: 10px;
+            padding-right: 10px;
+            padding-top: 10px;
         }
     </style>
     <title>Document</title>
@@ -24,36 +24,16 @@
                     <option><%- key[1] %></option>
                     <% }) %>
                 </select>
-
-                <input type="text" name="number_of_apps" id="apps-to-retrieve" class="form-control" placeholder="Apps Number" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" data-toggle="tooltip" data-placement="bottom" title="Number of apps to retrieve (500 max)">
-
-                <script>
-                    var apps_field = document.getElementById('apps-to-retrieve')
-                    apps_field.oninput = function() {
-                        var b = document.querySelector("button");
-                        if ((isNaN(apps_field.value) == true) || (apps_field.value > 500) || (apps_field.value < 0)) {
-                            b.setAttribute("disabled", "disabled");
-                        } else {
-                            b.removeAttribute("disabled");
-                            apps_field.style.color = '#495057'
-                        }
-                    }
-                </script>
-
+                <input type="text" class="form-control" placeholder="Num of apps (limit 500)" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
                 <div class="input-group-append">
                     <button class="btn btn-primary" type="submit">Get List</button>
                 </div>
             </div>
         </form>
-
     </nav>
+
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <script>
-        $(function () {
-            $('[data-toggle="tooltip"]').tooltip()
-        });
-    </script>
 </body>
 </html>

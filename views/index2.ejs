@@ -7,9 +7,9 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <style>
         body {
-            padding-left: 10px;
-            padding-right: 10px;
-            padding-top: 10px;
+            padding-left: 5px;
+            padding-right: 5px;
+            padding-top: 5px;
         }
     </style>
     <title>Document</title>
@@ -24,14 +24,30 @@
                     <option><%- key[1] %></option>
                     <% }) %>
                 </select>
+
+                <input type="text" name="number_of_apps" id="apps-to-retrieve" class="form-control" placeholder="Apps Number" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" data-toggle="tooltip" data-placement="bottom" title="Number of apps to retrieve (500 max)">
+
+                <script>
+                    var apps_field = document.getElementById('apps-to-retrieve')
+                    apps_field.oninput = function() {
+                        if ((isNaN(apps_field.value) == true) || (apps_field.value > 500)) {
+                            b.setAttribute("disabled", "disabled");
+                        } else {
+                            b.removeAttribute("disabled");
+                            apps_field.style.color = '#495057'
+                        }
+                    }
+                </script>
+
                 <div class="input-group-append">
                     <button class="btn btn-primary" type="submit">Get List</button>
+                    <button type="button" id="get-csv" class="btn btn-success">Download</button>
                 </div>
             </div>
         </form>
     </nav>
 
-    <table class="table">
+    <table id="table-csv" class="table table-striped table-dark">
         <thead class="thead-dark">
             <tr>
             <th scope="col">App Name</th>
@@ -54,6 +70,50 @@
         </tbody>
     </table>
 
+    <script>
+        function export_table_to_csv() {
+            // Generate our CSV string from out HTML Table
+            var csv = tableToCSV( document.querySelector( "#table-csv" ) );
+            // Create a CSV Blob
+            var blob = new Blob( [ csv ], { type: "text/csv"} );
+
+            // Determine which approach to take for the download
+            if ( navigator.msSaveOrOpenBlob ) {
+                // Works for Internet Explorer and Microsoft Edge
+                navigator.msSaveOrOpenBlob( blob, "output.csv" );
+
+            } else {
+                // Attempt to use an alternative method
+                var anchor = document.body.appendChild(
+                    document.createElement( "a" )
+                );
+                // If the [download] attribute is supported, try to use it
+                if ( "download" in anchor ) {
+                    anchor.download = "output.csv";
+                    anchor.href = URL.createObjectURL( blob );
+                    anchor.click();
+                }
+
+            }
+
+            function tableToCSV( table ) {
+            // We'll be co-opting `slice` to create arrays
+                var slice = Array.prototype.slice;
+
+                return slice.call( table.rows ).map(function ( row ) {
+                    return slice.call( row.cells ).map(function ( cell ) {
+                        return '"t"'.replace( "t", cell.textContent );
+                    }).join( "," );
+                }).join( "\r\n" );
+
+            }
+
+            };
+
+        document.querySelector("#get-csv").addEventListener("click", function () {
+            export_table_to_csv();
+        });
+    </script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
