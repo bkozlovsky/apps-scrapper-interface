@@ -38,7 +38,7 @@ app.post('/', urlencodedParser, function(req, res) {
   if (req.body.google_category) {
     Object.entries(gcategories.cats).forEach(function(key, value) {
       if (req.body.google_category == key[1]) {
-        gplay.list({category: key[0], num: Number(req.body.number_of_apps), fullDetail: true}).then(appsList => {
+        gplay.list({category: key[0], fullDetail: true}).then(appsList => {
           const newAppsList = appsList.map(app => ({
             title: app.title,
             developer: app.developer,
