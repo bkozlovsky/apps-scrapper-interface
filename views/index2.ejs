@@ -25,30 +25,38 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-light">
         <form class="form-group" method="post" action="/">
             <div class="input-group">
-                <select class="custom-select" id="inputGroupSelect04" name='selected_category'>
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="inputGroupSelect01">Google Play Store</label>
+                </div>
+                <select class="custom-select" id="inputGroupSelect04" name='google_category'>
                     <option selected>Select category...</option>
-                    <% Object.entries(categories).forEach(function(key, value) { %>
+                    <% Object.entries(google_category).forEach(function(key, value) { %>
                     <option><%- key[1] %></option>
                     <% }) %>
                 </select>
 
-                <input type="text" name="number_of_apps" id="apps-to-retrieve" class="form-control" placeholder="Apps Number" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" data-toggle="tooltip" data-placement="bottom" title="Number of apps to retrieve (500 max)">
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="submit">Get List</button>
+                </div>
+            </div>
+        </form>
+    </nav>
 
-                <script>
-                    var apps_field = document.getElementById('apps-to-retrieve')
-                    apps_field.oninput = function() {
-                        if ((isNaN(apps_field.value) == true) || (apps_field.value > 500) || (apps_field.value < 0)) {
-                            b.setAttribute("disabled", "disabled");
-                        } else {
-                            b.removeAttribute("disabled");
-                            apps_field.style.color = '#495057'
-                        }
-                    }
-                </script>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-light">
+        <form class="form-group" method="post" action="/">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="inputGroupSelect01">Apple App Store</label>
+                </div>
+                <select class="custom-select" id="inputGroupSelect04" name='appstore_category'>
+                    <option selected>Select category...</option>
+                    <% Object.entries(appstore_category).forEach(function(key, value) { %>
+                    <option><%- key[0] %></option>
+                    <% }) %>
+                </select>
 
                 <div class="input-group-append">
                     <button class="btn btn-primary" type="submit">Get List</button>
-                    <button type="button" id="get-csv" class="btn btn-success">Download</button>
                 </div>
             </div>
         </form>
@@ -66,7 +74,7 @@
             <th scope="col">Developer Website</th>
             <th scope="col">Developer Email</th>
             <th scope="col">Updated</th>
-            <th scope="col">Google Play link</th>
+            <th scope="col">Store URL</th>
             </tr>
         </thead>
         <tbody>
@@ -77,7 +85,7 @@
             <td><%- element['developerWebsite'] %></td>
             <td><%- element['developerEmail'] %></td>
             <td><%- element['updated'] %></td>
-            <td><a href="<%- element['glink'] %>"><%- element['glink'] %></a></td>
+            <td><a href="<%- element['applink'] %>"><%- element['applink'] %></a></td>
             </tr>
             <% }) %>
         </tbody>

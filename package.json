@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/bkozlovsky/apps-scrapper-interface/issues"
   },
-  "homepage": "https://github.com/bkozlovsky/apps-scrapper-interface#readme"
+  "homepage": "https://github.com/bkozlovsky/apps-scrapper-interface#readme",
+  "dependencies": {
+    "app-store-scraper": "^0.16.2"
+  }
 }
